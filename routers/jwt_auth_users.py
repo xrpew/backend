@@ -46,7 +46,7 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
         status_code=404, detail=ERROR_ID)
 
     user = search_user_db(form.username)
-    
+
     if not crypt.verify(form.password, user.password):
         raise HTTPException(
             status_code=404, detail=ERROR_PW)
@@ -57,7 +57,5 @@ def search_user_db(username: str):
         return UserDB(**users_db[username])
 
 def search_user(username: str):
-    #print('logro entrar')
     if username in users_db:
-        #print("autenticar")
         return User(**users_db[username])
